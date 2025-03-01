@@ -25,16 +25,22 @@ const StyledCheckbox = styled.div`
   }
 `;
 
-function Checkbox({ checked, onChange, disabled = false, id, children }) {
+function Checkbox({
+  checked,
+  onChange,
+  disabled = false,
+  id,
+  children,
+}: {
+  checked: boolean;
+  onChange: any;
+  disabled: boolean;
+  id: string | undefined;
+  children: any;
+}) {
   return (
     <StyledCheckbox>
-      <input
-        type="checkbox"
-        id={id}
-        checked={checked}
-        onChange={onChange}
-        disabled={disabled}
-      />
+      <input type="checkbox" id={id} checked={checked} onChange={onChange} disabled={disabled} />
       <label htmlFor={!disabled ? id : ""}>{children}</label>
     </StyledCheckbox>
   );

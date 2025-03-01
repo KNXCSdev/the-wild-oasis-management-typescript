@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BookingDataBox from "../../features/bookings/BookingDataBox";
+import BookingDataBox from "../bookings/BookingDataBox";
 
 import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
@@ -22,14 +22,7 @@ function CheckinBooking() {
 
   const booking = {};
 
-  const {
-    id: bookingId,
-    guests,
-    totalPrice,
-    numGuests,
-    hasBreakfast,
-    numNights,
-  } = booking;
+  const { id: bookingId, guests, totalPrice, numGuests, hasBreakfast, numNights } = booking;
 
   function handleCheckin() {}
 

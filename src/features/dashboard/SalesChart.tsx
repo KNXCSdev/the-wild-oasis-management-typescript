@@ -11,7 +11,13 @@ const StyledSalesChart = styled(DashboardBox)`
   }
 `;
 
-const fakeData = [
+interface Fake {
+  label: string;
+  totalSales: number;
+  extrasSales: number;
+}
+
+const fakeData: Fake[] = [
   { label: "Jan 09", totalSales: 480, extrasSales: 20 },
   { label: "Jan 10", totalSales: 580, extrasSales: 100 },
   { label: "Jan 11", totalSales: 550, extrasSales: 150 },
