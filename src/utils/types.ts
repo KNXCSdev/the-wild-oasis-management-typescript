@@ -8,11 +8,14 @@ export interface Booking {
   observations: string;
   isPaid: boolean;
   numGuests: number;
-  numNights?: number;
-  cabinPrice?: number;
-  extrasPrice?: number;
-  totalPrice?: number;
-  status?: string;
+}
+
+export interface BookingData extends Booking {
+  numNights: number;
+  cabinPrice: number;
+  extrasPrice: number;
+  totalPrice: number;
+  status: string;
   guests?: {
     fullName: string;
     email: string;
@@ -20,7 +23,7 @@ export interface Booking {
     countryFlag: string;
     nationalID: string;
   };
-  cabins?: {
+  cabins: {
     name: string;
   };
 }
