@@ -1,5 +1,9 @@
 import styled, { css } from "styled-components";
 
+// Define types for size and variation props
+type ButtonSize = "small" | "medium" | "large";
+type ButtonVariation = "primary" | "secondary" | "danger";
+
 const sizes = {
   small: css`
     font-size: 1.2rem;
@@ -47,3 +51,25 @@ const variations = {
     }
   `,
 };
+
+// Define the ButtonProps interface that ensures type safety
+interface ButtonProps {
+  size: ButtonSize;
+  variation: ButtonVariation;
+}
+
+const Button = styled.button<ButtonProps>`
+  border: none;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+
+  ${(props) => sizes[props.size]}
+  ${(props) => variations[props.variation]}
+`;
+
+Button.defaultProps = {
+  variation: "primary",
+  size: "medium",
+};
+
+export default Button;

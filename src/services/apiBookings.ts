@@ -1,8 +1,8 @@
 import { getToday } from "../utils/helpers";
-import { Booking } from "../utils/types";
+import { BookingData } from "../utils/types";
 import supabase from "./supabase";
 
-export async function getBooking(id: number): Promise<Booking> {
+export async function getBooking(id: number): Promise<BookingData> {
   const { data, error } = await supabase
     .from("bookings")
     .select("*, cabins(*), guests(*)")
@@ -14,11 +14,11 @@ export async function getBooking(id: number): Promise<Booking> {
     throw new Error("Booking not found");
   }
 
-  return data as Booking;
+  return data as BookingData;
 }
 
 // Returns all BOOKINGS that were created after the given date. Useful to get bookings created in the last 30 days, for example.
-export async function getBookingsAfterDate(date: string): Promise<Booking[]> {
+export async function getBookingsAfterDate(date: string): Promise<BookingData[]> {
   const { data, error } = await supabase
     .from("bookings")
     .select("created_at, totalPrice, extrasPrice")
@@ -30,11 +30,11 @@ export async function getBookingsAfterDate(date: string): Promise<Booking[]> {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data as Booking[];
+  return data as BookingData[];
 }
 
 // Returns all STAYS that were created after the given date
-export async function getStaysAfterDate(date: string): Promise<Booking[]> {
+export async function getStaysAfterDate(date: string): Promise<BookingData[]> {
   const { data, error } = await supabase
     .from("bookings")
     .select("*, guests(fullName)")
@@ -46,11 +46,11 @@ export async function getStaysAfterDate(date: string): Promise<Booking[]> {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data as Booking[];
+  return data as BookingData[];
 }
 
 // Activity means that there is a check-in or a check-out today
-export async function getStaysTodayActivity(): Promise<Booking[]> {
+export async function getStaysTodayActivity(): Promise<BookingData[]> {
   const { data, error } = await supabase
     .from("bookings")
     .select("*, guests(fullName, nationality, countryFlag)")
@@ -64,10 +64,10 @@ export async function getStaysTodayActivity(): Promise<Booking[]> {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data as Booking[];
+  return data as BookingData[];
 }
 
-export async function updateBooking(id: number, obj: Partial<Booking>): Promise<Booking> {
+export async function updateBooking(id: number, obj: Partial<BookingData>): Promise<BookingData> {
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)
@@ -80,7 +80,7 @@ export async function updateBooking(id: number, obj: Partial<Booking>): Promise<
     throw new Error("Booking could not be updated");
   }
 
-  return data as Booking;
+  return data as BookingData;
 }
 
 export async function deleteBooking(id: number): Promise<void> {
