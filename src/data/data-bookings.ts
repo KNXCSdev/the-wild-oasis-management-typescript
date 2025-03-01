@@ -1,16 +1,5 @@
 import { add } from "date-fns";
-
-interface Booking {
-  created_at: string;
-  startDate: string;
-  endDate: string;
-  cabinId: number;
-  guestId: number;
-  hasBreakfast: boolean;
-  observations: string;
-  isPaid: boolean;
-  numGuests: number;
-}
+import { Booking } from "../utils/types";
 
 function fromToday(numDays: number, withTime: boolean = false): string {
   const date = add(new Date(), { days: numDays });

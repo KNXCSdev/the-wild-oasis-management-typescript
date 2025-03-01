@@ -1,27 +1,33 @@
 import supabase from "./supabase";
 
-export async function getSettings() {
+interface Setting {
+  id: number;
+
+  [key: string]: any;
+}
+
+// Fetch the settings from the "settings" table (returns a single row)
+export async function getSettings(): Promise<Setting> {
   const { data, error } = await supabase.from("settings").select("*").single();
 
   if (error) {
     console.error(error);
     throw new Error("Settings could not be loaded");
   }
-  return data;
+  return data as Setting;
 }
 
 // We expect a newSetting object that looks like {setting: newValue}
-export async function updateSetting(newSetting) {
+export async function updateSetting(newSetting: Record<string, any>): Promise<Setting> {
   const { data, error } = await supabase
     .from("settings")
     .update(newSetting)
-    // There is only ONE row of settings, and it has the ID=1, and so this is the updated one
-    .eq("id", 1)
+    .eq("id", 1) // We assume there's only one row of settings with id=1
     .single();
 
   if (error) {
     console.error(error);
     throw new Error("Settings could not be updated");
   }
-  return data;
+  return data as Setting;
 }
