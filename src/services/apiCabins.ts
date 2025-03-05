@@ -1,4 +1,4 @@
-import { CabinsData } from "../utils/types";
+import { CabinsCreate, CabinsData } from "../utils/types";
 import supabase from "./supabase";
 
 export async function getCabins(): Promise<CabinsData[]> {
@@ -18,6 +18,17 @@ export async function deleteCabin(id: number) {
   if (error) {
     console.error(error);
     throw new Error("Cabin could not be deleted");
+  }
+
+  return data;
+}
+
+export async function createCabin(formData: CabinsCreate) {
+  const { data, error } = await supabase.from("cabins").insert([formData]).select();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Cabin could not be created");
   }
 
   return data;

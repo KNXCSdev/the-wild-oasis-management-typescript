@@ -38,3 +38,12 @@ export interface CabinsData {
   description: string;
   image: string;
 }
+
+export interface CabinsCreate {
+  name: string;
+  maxCapacity: number;
+  regularPrice: number;
+  discount: number;
+  description: string;
+  image: string;
+}
