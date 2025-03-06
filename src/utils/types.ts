@@ -45,5 +45,14 @@ export interface CabinsCreate {
   regularPrice: number;
   discount: number;
   description: string;
-  image: FileList;
+  image: FileList | string;
+}
+
+export interface CabinsEdit {
+  name: string;
+  maxCapacity: number;
+  regularPrice: number;
+  discount: number;
+  description: string;
+  image: File | string;
 }
