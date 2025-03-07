@@ -58,8 +58,10 @@ function CreateCabinForm({
     description: "",
     image: "",
   },
+  onCloseModal,
 }: {
-  cabinToEdit: CabinsData;
+  cabinToEdit?: CabinsData;
+  onCloseModal?: Function;
 }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
@@ -79,12 +81,29 @@ function CreateCabinForm({
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditSession)
-      editCabin({ newCabinData: { ...data, image }, id: editId }, { onSuccess: () => reset() });
-    else createCabin({ ...data, image: image }, { onSuccess: () => reset() });
+      editCabin(
+        { newCabinData: { ...data, image }, id: editId },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
+    else
+      createCabin(
+        { ...data, image: image },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
   };
 
   return (
-    <Form type="" onSubmit={handleSubmit(onSubmit)}>
+    <Form type={onCloseModal ? "modal" : "regular"} onSubmit={handleSubmit(onSubmit)}>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input
