@@ -6,10 +6,10 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { CabinsCreate, CabinsData, CabinsEdit } from "../../utils/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
+import { CabinsCreate, CabinsData } from "../../utils/types";
+
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 const FormRow = styled.div`
   display: grid;
@@ -72,31 +72,15 @@ function CreateCabinForm({
     formState: { errors },
   } = useForm<CabinsCreate>({ defaultValues: isEditSession ? editValues : {} });
 
-  const queryClient = useQueryClient();
-  const { mutate: createCabin, isPending } = useMutation({
-    mutationFn: createEditCabin,
-    onSuccess: () => {
-      toast.success("New cabin successfully created");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset();
-    },
-  });
-
-  const { mutate: editCabin, isPending: isEditing } = useMutation({
-    mutationFn: ({ newCabinData, id }: { newCabinData: CabinsEdit; id: number }) =>
-      createEditCabin(newCabinData, id),
-    onSuccess: () => {
-      toast.success("Cabin successfully edited");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset();
-    },
-  });
+  const { createCabin, isPending } = useCreateCabin();
+  const { editCabin, isEditing } = useEditCabin();
 
   const onSubmit: SubmitHandler<CabinsCreate> = (data) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
-    if (isEditSession) editCabin({ newCabinData: { ...data, image }, id: editId });
-    else createCabin({ ...data, image: image });
+    if (isEditSession)
+      editCabin({ newCabinData: { ...data, image }, id: editId }, { onSuccess: () => reset() });
+    else createCabin({ ...data, image: image }, { onSuccess: () => reset() });
   };
 
   return (
@@ -106,6 +90,7 @@ function CreateCabinForm({
         <Input
           type="text"
           id="name"
+          disabled={isPending}
           {...register("name", { required: "This field is required" })}
         />
         {errors?.name?.message && <Error>{errors.name.message}</Error>}
@@ -116,6 +101,7 @@ function CreateCabinForm({
         <Input
           type="number"
           id="maxCapacity"
+          disabled={isPending}
           {...register("maxCapacity", {
             required: "This field is required",
             min: {
@@ -132,6 +118,7 @@ function CreateCabinForm({
         <Input
           type="number"
           id="regularPrice"
+          disabled={isPending}
           {...register("regularPrice", {
             required: "This field is required",
             min: {
@@ -148,6 +135,7 @@ function CreateCabinForm({
         <Input
           type="number"
           id="discount"
+          disabled={isPending}
           defaultValue={0}
           {...register("discount", {
             required: "This field is required",
@@ -163,6 +151,7 @@ function CreateCabinForm({
         <Textarea
           id="description"
           defaultValue=""
+          disabled={isPending}
           {...register("description", { required: "This field is required" })}
         />
         {errors?.description?.message && <Error>{errors.description.message}</Error>}

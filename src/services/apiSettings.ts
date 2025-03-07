@@ -2,8 +2,10 @@ import supabase from "./supabase";
 
 interface Setting {
   id: number;
-
-  [key: string]: any;
+  minBookingLength: number;
+  maxBookingLength: number;
+  maxGuestsPerBooking: number;
+  breakfastPrice: number;
 }
 
 // Fetch the settings from the "settings" table (returns a single row)
