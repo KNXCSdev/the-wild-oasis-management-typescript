@@ -48,10 +48,10 @@ const Discount = styled.div`
 `;
 
 export default function CabinRow({ cabin }: { cabin: CabinsData }) {
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState<boolean>(false);
   const { id: cabinId, name, maxCapacity, regularPrice, discount, image, description } = cabin;
   const { mutate, isPending } = useDeleteCabin();
-  const { createCabin, isPending: isCreating } = useCreateCabin();
+  const { createCabin } = useCreateCabin();
 
   function handleDuplicate() {
     createCabin({
@@ -59,11 +59,10 @@ export default function CabinRow({ cabin }: { cabin: CabinsData }) {
       maxCapacity,
       regularPrice,
       discount,
-      description,
       image,
+      description,
     });
   }
-
   return (
     <>
       <TableRow role="row">
@@ -76,7 +75,7 @@ export default function CabinRow({ cabin }: { cabin: CabinsData }) {
           <button onClick={() => setShowForm((show) => !show)}>
             <HiPencil />
           </button>
-          <button disabled={isCreating} onClick={handleDuplicate}>
+          <button onClick={handleDuplicate}>
             <HiSquare2Stack />
           </button>
           <button disabled={isPending} onClick={() => mutate(cabinId)}>
