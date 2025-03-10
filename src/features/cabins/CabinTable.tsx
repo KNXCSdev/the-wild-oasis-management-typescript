@@ -8,6 +8,7 @@ import Menus from "../../ui/Menus";
 import Table from "../../ui/Table";
 import { useSearchParams } from "react-router";
 import { CabinsData } from "../../utils/types";
+import Empty from "../../ui/Empty";
 
 type SortField = keyof Pick<CabinsData, "maxCapacity" | "regularPrice" | "discount" | "created_at">;
 
@@ -20,6 +21,7 @@ export default function CabinTable() {
   });
 
   if (isLoading) return <Spinner />;
+  if (!cabins?.length) return <Empty resource="bookings" />;
 
   //1)FILTER
   const filterValue = searchParams.get("discount") || "all";

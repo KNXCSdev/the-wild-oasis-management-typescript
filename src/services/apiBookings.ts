@@ -1,6 +1,38 @@
 import { getToday } from "../utils/helpers";
-import { BookingData } from "../utils/types";
+import { BookingData, BookingsTypes } from "../utils/types";
 import supabase from "./supabase";
+
+export async function getBookings({
+  filter,
+  sortBy,
+}: {
+  filter: { field: string; value: string } | null;
+  sortBy: { field: string; direction: string };
+}): Promise<BookingsTypes[]> {
+  let query = supabase
+    .from("bookings")
+    .select(
+      "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)"
+    );
+
+  // FILTER
+  if (filter) query = query.eq(filter.field, filter.value);
+
+  // SORT
+  if (sortBy)
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings could not be loaded");
+  }
+
+  return data;
+}
 
 export async function getBooking(id: number): Promise<BookingData> {
   const { data, error } = await supabase
@@ -14,7 +46,7 @@ export async function getBooking(id: number): Promise<BookingData> {
     throw new Error("Booking not found");
   }
 
-  return data as BookingData;
+  return data;
 }
 
 // Returns all BOOKINGS that were created after the given date. Useful to get bookings created in the last 30 days, for example.
@@ -46,7 +78,7 @@ export async function getStaysAfterDate(date: string): Promise<BookingData[]> {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data as BookingData[];
+  return data;
 }
 
 // Activity means that there is a check-in or a check-out today
@@ -64,7 +96,7 @@ export async function getStaysTodayActivity(): Promise<BookingData[]> {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data as BookingData[];
+  return data;
 }
 
 export async function updateBooking(id: number, obj: Partial<BookingData>): Promise<BookingData> {
@@ -80,7 +112,7 @@ export async function updateBooking(id: number, obj: Partial<BookingData>): Prom
     throw new Error("Booking could not be updated");
   }
 
-  return data as BookingData;
+  return data;
 }
 
 export async function deleteBooking(id: number): Promise<void> {
