@@ -1,5 +1,5 @@
 import { getToday } from "../utils/helpers";
-import { BookingData, BookingsTypes } from "../utils/types";
+import { BookingData, BookingRowTypes } from "../utils/types";
 import supabase from "./supabase";
 
 export async function getBookings({
@@ -8,7 +8,7 @@ export async function getBookings({
 }: {
   filter: { field: string; value: string } | null;
   sortBy: { field: string; direction: string };
-}): Promise<BookingsTypes[]> {
+}): Promise<BookingRowTypes[]> {
   let query = supabase
     .from("bookings")
     .select(

@@ -1,9 +1,8 @@
 export interface Booking {
-  id: number;
-  cabinId: number;
   created_at: string;
   startDate: string;
   endDate: string;
+  cabinId: number;
   guestId: number;
   hasBreakfast: boolean;
   observations: string;
@@ -30,21 +29,6 @@ export interface BookingData extends Booking {
 }
 
 export interface BookingRowTypes {
-  booking: {
-    id: number;
-    created_at: string;
-    startDate: string;
-    endDate: string;
-    numNights: number;
-    numGuests: number;
-    totalPrice: number;
-    status: string;
-    guests: { fullName: string; email: string }[];
-    cabins: { name: string }[];
-  };
-}
-
-export interface BookingsTypes {
   id: number;
   created_at: string;
   startDate: string;
@@ -53,8 +37,8 @@ export interface BookingsTypes {
   numGuests: number;
   totalPrice: number;
   status: string;
-  guests: { fullName: string; email: string }[];
-  cabins: { name: string }[];
+  guests: { fullName: string; email: string } | { fullName: string; email: string }[];
+  cabins: { name: string } | { name: string }[];
 }
 
 export interface CabinsData {

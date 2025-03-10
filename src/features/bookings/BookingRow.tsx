@@ -45,23 +45,29 @@ function BookingRow({
     numGuests,
     totalPrice,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    guests,
+    cabins,
   },
-}: BookingRowTypes) {
+}: {
+  booking: BookingRowTypes;
+}) {
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",
   };
 
+  const guest = Array.isArray(guests) ? guests[0] : guests;
+  const cabin = Array.isArray(cabins) ? cabins[0] : cabins;
+
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+      <Cabin>{cabin?.name}</Cabin>
 
       <Stacked>
-        <span>{guestName}</span>
-        <span>{email}</span>
+        {/* Safely access guestName and email */}
+        <span>{guest?.fullName}</span>
+        <span>{guest?.email}</span>
       </Stacked>
 
       <Stacked>
