@@ -8,10 +8,9 @@ import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import { BookingRowTypes } from "../../utils/types";
 import Menus from "../../ui/Menus";
-import Modal from "../../ui/Modal";
-import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiTrash } from "react-icons/hi2";
-import ConfirmDelete from "../../ui/ConfirmDelete";
-import { deleteBooking } from "../../services/apiBookings";
+
+import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
+
 import { useNavigate } from "react-router";
 
 const Cabin = styled.div`
@@ -101,6 +100,15 @@ function BookingRow({
           <Menus.Button icon={<HiEye />} onClick={() => navigate(`/bookings/${bookingId}`)}>
             See details
           </Menus.Button>
+
+          {status === "unconfirmed" && (
+            <Menus.Button
+              icon={<HiArrowDownOnSquare />}
+              onClick={() => navigate(`/checkin/${bookingId}`)}
+            >
+              Check in
+            </Menus.Button>
+          )}
         </Menus.List>
       </Menus.Menu>
     </Table.Row>
