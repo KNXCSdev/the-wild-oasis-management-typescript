@@ -32,9 +32,9 @@ function Checkbox({
   id,
   children,
 }: {
-  checked: boolean;
+  checked?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled: boolean;
+  disabled?: boolean;
   id: string | undefined;
   children: React.ReactNode;
 }) {
