@@ -11,7 +11,7 @@ import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
-import { Booking, BookingData } from "../../utils/types";
+import { BookingData } from "../../utils/types";
 
 const StyledBookingDataBox = styled.section`
   /* Box */
@@ -70,7 +70,7 @@ const Guest = styled.div`
 `;
 
 type PriceProps = {
-  isPaid: boolean;
+  ispaid: string;
 };
 
 const Price = styled.div<PriceProps>`
@@ -82,8 +82,8 @@ const Price = styled.div<PriceProps>`
   margin-top: 2.4rem;
 
   background-color: ${(props) =>
-    props.isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
-  color: ${(props) => (props.isPaid ? "var(--color-green-700)" : "var(--color-yellow-700)")};
+    props.ispaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
+  color: ${(props) => (props.ispaid ? "var(--color-green-700)" : "var(--color-yellow-700)")};
 
   & p:last-child {
     text-transform: uppercase;
@@ -162,7 +162,7 @@ function BookingDataBox({ booking }: { booking: BookingData }) {
           {hasBreakfast ? "Yes" : "No"}
         </DataItem>
 
-        <Price isPaid={isPaid}>
+        <Price ispaid={isPaid ? "true" : ""}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 
