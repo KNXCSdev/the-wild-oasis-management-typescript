@@ -24,12 +24,14 @@ function SignupForm() {
         <Input type="password" id="passwordConfirm" />
       </FormRow>
 
-      <FormRow>
+      <FormRow label="signup">
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button size="medium" variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Create new user</Button>
+        <Button size="medium" variation="primary">
+          Create new user
+        </Button>
       </FormRow>
     </Form>
   );
