@@ -16,11 +16,11 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-type FormProps = {
+interface FormProps {
   label?: string;
   error?: string;
   children: React.ReactElement;
-};
+}
 
 function FormRowVertical({ label, error, children }: FormProps) {
   return (

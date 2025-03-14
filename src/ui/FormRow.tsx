@@ -36,13 +36,13 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-type FormProps = {
+interface FormProps {
   label: string;
   error?: string;
   children: React.ReactNode;
-};
+}
 
-function FormRow({ label, error, children }: FormProps) {
+function FormRow({ label, error = "", children }: FormProps) {
   return (
     <StyledFormRow>
       {label && <Label htmlFor={(children as any)?.props?.id}>{label}</Label>}

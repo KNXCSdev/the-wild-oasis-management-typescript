@@ -69,9 +69,9 @@ const Guest = styled.div`
   }
 `;
 
-type PriceProps = {
+interface PriceProps {
   ispaid: string;
-};
+}
 
 const Price = styled.div<PriceProps>`
   display: flex;

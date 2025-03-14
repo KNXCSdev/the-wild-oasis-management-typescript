@@ -1,9 +1,9 @@
 import Select from "./Select";
 import { useSearchParams } from "react-router";
 
-type SortTypes = {
+interface SortTypes {
   options: { value: string; label: string }[];
-};
+}
 
 export default function SortBy({ options }: SortTypes) {
   const [searchParams, setSearchParams] = useSearchParams();
