@@ -29,9 +29,9 @@ const StyledToggle = styled.button`
   }
 `;
 
-type StyledListProps = {
+interface StyledListProps {
   position: { x: number; y: number } | null;
-};
+}
 
 const StyledList = styled.ul<StyledListProps>`
   position: fixed;
@@ -69,13 +69,13 @@ const StyledButton = styled.button`
   }
 `;
 
-type ContexTypes = {
+interface ContexTypes {
   openId: number;
   close: () => void;
   open: (id: number) => void;
   position: { x: number; y: number } | null;
   setPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number } | null>>;
-};
+}
 
 const defaultContext: ContexTypes = {
   openId: 0,
@@ -121,10 +121,10 @@ function Toggle({ id }: { id: number }) {
   );
 }
 
-type ListTypes = {
+interface ListTypes {
   id: number;
   children: React.ReactNode;
-};
+}
 
 function List({ id, children }: ListTypes) {
   const { openId, position, close } = useContext(MenusContext);
@@ -140,11 +140,11 @@ function List({ id, children }: ListTypes) {
   );
 }
 
-type ButtonTypes = {
+interface ButtonTypes {
   icon: React.ReactElement;
   children: React.ReactNode;
   onClick?: () => void;
-};
+}
 
 function Button({ children, icon, onClick }: ButtonTypes) {
   const { close } = useContext(MenusContext);

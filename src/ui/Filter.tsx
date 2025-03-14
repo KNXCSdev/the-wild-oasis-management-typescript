@@ -39,10 +39,10 @@ const FilterButton = styled.button<FilterProps>`
   }
 `;
 
-type FilterTypes = {
+interface FilterTypes {
   filterField: string;
   options: { value: string; label: string }[];
-};
+}
 
 export default function Filter({ filterField, options }: FilterTypes) {
   const [searchParams, setSearchParams] = useSearchParams();

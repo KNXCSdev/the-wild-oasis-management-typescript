@@ -62,10 +62,10 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-type TableTypes = {
+interface TableTypes {
   columns: string;
   children: React.ReactNode;
-};
+}
 
 const TableContext = createContext<{ columns: string }>({ columns: "" });
 
@@ -95,10 +95,10 @@ function Row({ children }: { children: React.ReactNode }) {
   );
 }
 
-type BodyTypes<T> = {
+interface BodyTypes<T> {
   data: T[] | undefined;
   render: (item: T, index: number) => React.ReactNode;
-};
+}
 
 function Body<T>({ data, render }: BodyTypes<T>) {
   if (!data?.length) return <Empty>No data to show at the moment</Empty>;

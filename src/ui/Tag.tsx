@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-type TagTypes = {
+interface TagTypes {
   type: string;
-};
+}
 
 const Tag = styled.span<TagTypes>`
   width: fit-content;

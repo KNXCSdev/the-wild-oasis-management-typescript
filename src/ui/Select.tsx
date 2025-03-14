@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-type StyledSelectTypes = {
+interface StyledSelectTypes {
   type?: string;
-};
+}
 
 const StyledSelect = styled.select<StyledSelectTypes>`
   font-size: 1.4rem;
@@ -15,12 +15,12 @@ const StyledSelect = styled.select<StyledSelectTypes>`
   box-shadow: var(--shadow-sm);
 `;
 
-type SelectTypes = {
+interface SelectTypes {
   options: { value: string; label: string }[];
   value?: string;
   type?: string;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-};
+}
 
 export default function Select({ options, value, onChange, ...props }: SelectTypes) {
   return (
