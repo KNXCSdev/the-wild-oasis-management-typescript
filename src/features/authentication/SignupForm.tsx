@@ -1,19 +1,28 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
+import { useSignup } from "./useSignup";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 // Email regex: /\S+@\S+\.\S+/
+interface SignupFormData {
+  fullName: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
 
 function SignupForm() {
-  const { register, formState, getValues, handleSubmit } = useForm();
+  const { register, formState, getValues, handleSubmit, reset } = useForm<SignupFormData>();
   const { errors } = formState;
+  const { signup, isPending } = useSignup();
 
-  function onSubmit(data: any) {
-    console.log(data);
-  }
-  console.log(errors);
+  const onSubmit: SubmitHandler<SignupFormData> = (data) => {
+    signup(data, { onSettled: () => reset() });
+  };
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Full name" error={errors?.fullName?.message as string | undefined}>
@@ -21,6 +30,7 @@ function SignupForm() {
           type="text"
           id="fullName"
           {...register("fullName", { required: "This field is required" })}
+          disabled={isPending}
         />
       </FormRow>
 
@@ -35,6 +45,7 @@ function SignupForm() {
               message: "Please provide a valid email address",
             },
           })}
+          disabled={isPending}
         />
       </FormRow>
 
@@ -45,6 +56,7 @@ function SignupForm() {
         <Input
           type="password"
           id="password"
+          disabled={isPending}
           {...register("password", {
             required: "This field is required",
             minLength: {
@@ -62,6 +74,7 @@ function SignupForm() {
         <Input
           type="password"
           id="passwordConfirm"
+          disabled={isPending}
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) => value === getValues().password || "Passwords need to match",
@@ -71,11 +84,11 @@ function SignupForm() {
 
       <FormRow label="">
         {/* type is an HTML attribute! */}
-        <Button size="medium" variation="secondary" type="reset">
+        <Button size="medium" variation="secondary" type="reset" disabled={isPending}>
           Cancel
         </Button>
         <Button size="medium" variation="primary">
-          Create new user
+          {!isPending ? "Create new user" : <SpinnerMini />}
         </Button>
       </FormRow>
     </Form>
