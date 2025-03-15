@@ -39,7 +39,7 @@ function CheckinBooking() {
 
   if (!booking) return <PageNotFound />;
 
-  const { id, guests, totalPrice, numGuests, hasBreakfast, numNights } = booking!;
+  const { id, guests, totalPrice, numGuests, numNights } = booking!;
   const bookingId = id!;
 
   const { breakfastPrice } = settings!;

@@ -1,4 +1,3 @@
-import { PostgrestQueryBuilder } from "@supabase/postgrest-js";
 import { CabinsData } from "../utils/types";
 import supabase, { supabaseUrl } from "./supabase";
 

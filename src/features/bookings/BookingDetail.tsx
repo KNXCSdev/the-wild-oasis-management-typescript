@@ -13,7 +13,7 @@ import { useNavigate } from "react-router";
 import { useBooking } from "./useBooking";
 import Spinner from "../../ui/Spinner";
 import PageNotFound from "../../pages/PageNotFound";
-import { HiArrowUpOnSquare } from "react-icons/hi2";
+
 import { useCheckout } from "../check-in-out/useCheckout";
 import { useDeleteBooking } from "./useDeleteBooking";
 import Modal from "../../ui/Modal";

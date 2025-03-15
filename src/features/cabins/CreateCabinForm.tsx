@@ -75,7 +75,7 @@ function CreateCabinForm({
   } = useForm<CabinsCreate>({ defaultValues: isEditSession ? editValues : {} });
 
   const { createCabin, isPending } = useCreateCabin();
-  const { editCabin, isEditing } = useEditCabin();
+  const { editCabin } = useEditCabin();
 
   const onSubmit: SubmitHandler<CabinsCreate> = (data) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
