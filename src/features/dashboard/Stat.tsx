@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 import styled from "styled-components";
 
 const StyledStat = styled.div`
@@ -47,7 +49,14 @@ const Value = styled.p`
   font-weight: 500;
 `;
 
-function Stat({ icon, title, value, color }) {
+interface StatProps {
+  icon: ReactElement;
+  title: string;
+  value: string;
+  color: string;
+}
+
+function Stat({ icon, title, value, color }: StatProps) {
   return (
     <StyledStat>
       <Icon color={color}>{icon}</Icon>

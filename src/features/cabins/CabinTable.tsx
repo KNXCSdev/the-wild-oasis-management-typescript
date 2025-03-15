@@ -1,6 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-
-import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 
@@ -9,18 +6,16 @@ import Table from "../../ui/Table";
 import { useSearchParams } from "react-router";
 import { CabinsData } from "../../utils/types";
 import Empty from "../../ui/Empty";
+import { useCabins } from "./useCabins";
 
 type SortField = keyof Pick<CabinsData, "maxCapacity" | "regularPrice" | "discount" | "created_at">;
 
 export default function CabinTable() {
   const [searchParams] = useSearchParams();
 
-  const { isLoading, data: cabins } = useQuery({
-    queryKey: ["cabins"],
-    queryFn: getCabins,
-  });
+  const { cabins, isPending } = useCabins();
 
-  if (isLoading) return <Spinner />;
+  if (isPending) return <Spinner />;
   if (!cabins?.length) return <Empty resource="bookings" />;
 
   //1)FILTER
