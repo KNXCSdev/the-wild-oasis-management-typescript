@@ -132,7 +132,7 @@ export async function updateBooking(id: number, obj: Partial<BookingData>): Prom
 }
 
 export async function deleteBooking(id: number): Promise<void> {
-  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+  const { error } = await supabase.from("bookings").delete().eq("id", id);
 
   if (error) {
     console.error(error);
